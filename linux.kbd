@@ -1,0 +1,49 @@
+(defcfg
+  input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink "My KMonad output")
+  fallthrough true)
+
+(defsrc
+  tab    q      w      e      r      t      y      u      i      o      p      [
+  caps   a      s      d      f      g      h      j      k      l      ;      '
+  lsft   z      x      c      v      b      n      m      ,      .      /      rsft
+  lctl   spc    ralt   rctl)
+
+(defalias
+  met-a (tap-hold-next-release 200 a lmet)
+  sft-s (tap-hold-next-release 200 s lsft)
+  alt-d (tap-hold-next-release 200 d lalt)
+  ctl-f (tap-hold-next-release 200 f lctl)
+
+  ctl-j (tap-hold-next-release 200 j rctl)
+  alt-k (tap-hold-next-release 200 k lalt)
+  sft-l (tap-hold-next-release 200 l rsft)
+  met-; (tap-hold-next-release 200 ; rmet)
+
+  lower (tap-hold-next-release 200 spc (layer-toggle lower))
+  raise (layer-toggle raise)
+  move (layer-toggle move))
+
+(deflayer base
+  tab    q      w      e      r      t      y      u      i      o      p      bspc
+  esc    @met-a @sft-s @alt-d @ctl-f g      h      @ctl-j @alt-k @sft-l @met-; '
+  lsft   z      x      c      v      b      n      m      ,      .      /      ret
+  @move  @lower @raise ralt)
+  
+(deflayer lower
+  XX     f1     f2     f3     f4     XX     XX     7      8      9      XX     del
+  XX     f5     f6     f7     f8     XX     -      4      5      6      0      XX
+  XX     f9     f10    f11    f12    XX     XX     1      2      3      .      XX
+  XX     XX     XX     XX)
+
+(deflayer raise
+  ~      !      @      #      $      %      ^      &      *      [      ]      XX
+  XX     +      =      \_     -      XX     XX     \(     \)     {      }      XX
+  caps   <      >      |      \\     XX     XX     `      ,      .      /      XX
+  XX     XX     XX     XX)
+
+(deflayer move
+  XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX
+  XX     XX     XX     XX     XX     XX     left   down   up     right  XX     XX
+  XX     XX     XX     XX     XX     XX     home   pgdn   pgup   end    XX     XX
+  XX     XX     XX     XX)
