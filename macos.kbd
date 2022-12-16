@@ -14,6 +14,7 @@
   sft-s (tap-hold-next-release 200 s lsft)
   alt-d (tap-hold-next-release 200 d lalt)
   ctl-f (tap-hold-next-release 200 f lctl)
+  mov-g (tap-hold-next-release 200 g (layer-toggle move))
 
   ctl-j (tap-hold-next-release 200 j rctl)
   alt-k (tap-hold-next-release 200 k lalt)
@@ -26,7 +27,7 @@
 
 (deflayer base
   tab    q      w      e      r      t      y      u      i      o      p      bspc
-  esc    @met-a @sft-s @alt-d @ctl-f g      h      @ctl-j @alt-k @sft-l @met-; '
+  esc    @met-a @sft-s @alt-d @ctl-f @mov-g h      @ctl-j @alt-k @sft-l @met-; '
   lsft   z      x      c      v      b      n      m      ,      .      /      ret
   @move  @lower @raise ralt)
 
